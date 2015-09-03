@@ -1,0 +1,71 @@
+---------11111111111111111111111111--------------
+0.    Camera brand: Sony
+    megapixel: 8
+    price of camera: 129.0
+1.    Camera brand: Samseng
+    megapixel: 4
+    price of camera: 99.0
+2.    Camera brand: Canon
+    megapixel: 10
+    price of camera: 129.0
+3.    Camera brand: Casio
+    megapixel: 6
+    price of camera: 99.0
+4.    Camera brand: Panasonic
+    megapixel: 5
+    price of camera: 99.0
+5.    Camera brand: Olympus
+    megapixel: 9
+    price of camera: 129.0
+6.    Camera brand: Alpa
+    megapixel: 7
+    price of camera: 129.0
+7.    Camera brand: Leica
+    megapixel: 6
+    price of camera: 99.0
+8.    Camera brand: Kodak
+    megapixel: 10
+    price of camera: 129.0
+---------222222222222222222222222222-----------------
+ 26.284817482091132
+First name: ambasager
+Last name: tetemke
+Age: 33
+
+---------33333333333333333333333333333------------------
+5
+First name: ab
+Last name: tt
+Age: 87
+
+4
+First name: ambes
+Last name: tetemke
+Age: 33
+
+First name: adane
+Last name: tetemke
+Age: 27
+
+First name: tesfay
+Last name: tetemke
+Age: 43
+
+First name: ezan
+Last name: tesfay
+Age: 3
+
+-------------------------44444444444444444444-------------------
+0.0
+0.0
+20.08
+--------------------5555555555555555555-------------------------
+current balance: $20000.0
+updated after monthly interest: $20050.0
+current balance30000.0
+updated after monthly interest: $30075.0
+after interestrate is modified********************************
+current balance: $20050.0
+updated after monthly interest: $21052.5
+current balance: $30075.0
+updated after monthly interest: $31578.75
