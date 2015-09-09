@@ -1,6 +1,6 @@
-package lessonfivetwo;
+package lessonfivetwosix;
 
-public class NoteBook extends Computer{
+public class NoteBook extends Computer implements Cloneable{
 	String uniqueID;
 	double height;
 	double width;
@@ -8,36 +8,36 @@ public class NoteBook extends Computer{
 	public double screenSize(){
 		return height*width;
 	}
-	public boolean equals(NoteBook n){
-		if(this.height*this.width*this.weight==n.width*n.height*n.weight){
+	@Override
+	public boolean equals(Object n){
+		try{
+			if(n.equals(null)){return false;}
+			if(!((NoteBook)n instanceof NoteBook)){return false;}
+			}
+			catch(Exception e){}
+		
+		if(this.height*this.width*this.weight==((NoteBook)n).width*((NoteBook)n).height*((NoteBook)n).weight){
 			return true;
 		}
 		return false;
 	}
+	
+	@Override
 	public int hashCode(){
-		if(this.uniqueID!=null && this.uniqueID!=""){
-		return hashFunction(this.uniqueID,this.uniqueID.length());
-		}
-		return -1;
+		int hash=7;//always has to be primitive number to avoid collision , this is size of the table
+		
+		return 11*hash*uniqueID.hashCode();
+		
+		
 	}
-	private int hashFunction(String uniqueID,int n){
-		if(uniqueID!=null && uniqueID!=""){
-		if(n==0){
-			return uniqueID.charAt(0);
-		}
-		return 7+uniqueID.charAt(n-1)+hashFunction(uniqueID,n-1);
-		}
-		else{
-			return -1;
-		}
-	}
-	public NoteBook clone(){
+	
+	public NoteBook clone()throws CloneNotSupportedException{
 		NoteBook obj=new NoteBook(this.height,this.weight,this.weight,this.getManufacturer(),this.getProcessor(),this.getRamSize(),this.getDiskSize(),this.getProcessorSpeed(),this.getSerialNumber(),this.uniqueID);
 		return obj;
 	}
 	
 	public NoteBook(double height,double width,double weight,String manufacturer,
-			String processor,int ramSize,int diskSize,	double processorSpeed,int serialNumber,String uniqueID){
+			String processor,int ramSize,int diskSize,	double processorSpeed,String serialNumber,String uniqueID){
 		super(manufacturer,processor,ramSize,diskSize, processorSpeed,serialNumber);
 		this.height=height;
 		this.width=width;

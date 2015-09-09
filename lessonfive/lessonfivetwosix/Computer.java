@@ -1,7 +1,7 @@
-package lessonfivetwo;
+package lessonfivetwosix;
 
 public class Computer {
-	private int serialNumber;
+	private String serialNumber;
 	private String manufacturer;
 	private String processor;
 	private int ramSize;
@@ -12,10 +12,10 @@ public class Computer {
 	public String getManufacturer() {
 		return manufacturer;
 	}
-	public int getSerialNumber() {
+	public String getSerialNumber() {
 		return serialNumber;
 	}
-	public void setSerialNumber(int serialNumber) {
+	public void setSerialNumber(String serialNumber) {
 		this.serialNumber = serialNumber;
 	}
 	public String getProcessor() {
@@ -31,28 +31,30 @@ public class Computer {
 		return processorSpeed;
 	}
 	
-	//end of getters
-	public boolean equals(Computer c){
-		if(this.getSerialNumber()==c.getSerialNumber()&& this.getManufacturer()==c.manufacturer){
+	//Override
+	public boolean equals(Object c){
+		try{
+		if(c.equals(null)){return false;}
+		if(!((Computer)c instanceof Computer)){return false;}
+		}
+		catch(Exception e){}
+		if(this.getSerialNumber()==((Computer)c).getSerialNumber()&& this.getManufacturer()==((Computer)c).manufacturer){
 			return true;
 		}
 		return false;
 	}
+	@Override
 	public int hashCode(){
-		return (int)getSerialNumber()+
-				hashFunction(this.getManufacturer(),this.getManufacturer().length());
+		int hash=5;
+		return 17*hash*this.serialNumber.hashCode()*this.manufacturer.hashCode();
 	}
-	private int hashFunction(String str,int n){
-		if(n==0)
-			return str.charAt(0);
-		return str.charAt(n-1)+hashFunction(str,n-1);
-	}
+	
 	public double computePower(){
 		return getRamSize()*getProcessorSpeed();
 	}
 	
 	public Computer(String manufacturer,String processor,int ramSize,
-			int diskSize,double processorSpeed,int serialNumber){
+			int diskSize,double processorSpeed,String serialNumber){
 		this.manufacturer=manufacturer;
 		this.processor=processor;
 		this.ramSize=ramSize;
