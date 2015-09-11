@@ -52,9 +52,7 @@ public class ProblemThree extends JFrame{
 		p2.add(tc);		
 		p3.add(convert);		
 		setVisible(true);
-		convert.addActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
+		convert.addActionListener(lam->{
 				
 				tkm.setText(" ");
 				tkg.setText(" ");
@@ -79,7 +77,7 @@ public class ProblemThree extends JFrame{
 					
 				}
 				
-			}
+			
 			
 		});
 	}
