@@ -79,8 +79,7 @@ public class ExtraCredit extends JFrame{
 		jpm.add(lme);jpm.add(tar);
 		jps.add(sub);
 		sub.addActionListener(ad ->{
-			System.out.println(tfn.getText());
-			System.out.println(tar.getText());
+		
 			JOptionPane.showMessageDialog(null,checkFields());
 		});
 		
