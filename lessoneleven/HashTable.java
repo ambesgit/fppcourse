@@ -25,13 +25,22 @@ public class HashTable {
 				myContacts[hashKey]=new PersonItem(key,name);
 				return true;
 			}
+			else if(myContacts[hashKey].email_id==key){
+				myContacts[hashKey]=new PersonItem(key,name);
+				return true;
+			}
 			else{
 				while(myContacts[hashKey]!=null){//if collision, check the next cell and insert there
-					++hashKey;
+					++hashKey;					
 					if(myContacts.length>hashKey&&myContacts[hashKey]==null){
 						myContacts[hashKey]=new PersonItem(key,name);
 						return true;
 					}
+					if(myContacts.length>hashKey&&myContacts[hashKey].email_id==key){
+						myContacts[hashKey]=new PersonItem(key,name);
+						return true;
+					}
+					
 					if(myContacts.length<=hashKey){
 						//to be resize
 						return false;

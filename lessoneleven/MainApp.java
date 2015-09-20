@@ -23,6 +23,7 @@ public class MainApp {
 		System.out.println("size of the hashtable:---> ");
 		System.out.println(n.size());
 		System.out.println(n.insert("ambes1@gmail.com", "ambasager"));
+		System.out.println(n.insert("ambes1@gmail.com", "ambes"));
 		System.out.println(n.insert("tesfaye@gmail.com", "ambasager"));
 		System.out.println(n.insert("hailish@yahoo.com", "ambasager"));
 		System.out.println(n.insert("1ambes@gmail.com", "tetemke"));
