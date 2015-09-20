@@ -1,103 +1,130 @@
 package lessoneleven;
-import java.io.*;
-import java.util.Scanner;
+
+import java.util.Arrays;
+
 public class HashTable {
-	//demonstrates hash table user defined implementation with linear probing	
-	private DataItem[] hashArray;    // array holds hash table
-	private int arraySize;
-	private DataItem nonItem;        // for deleted items
-	//-------------------------------------------------------------
-	public HashTable(int size)       // constructor
-	   {
-	   arraySize = size;
-	   hashArray = new DataItem[arraySize];
-	   nonItem = null;   // deleted item key is -1
-	   }
-	//-------------------------------------------------------------
-	public void displayTable()
-	   {
-	   System.out.println("Table: ");
-	   for(int j=0; j<arraySize; j++)
-	      {
-	      if(hashArray[j] != null)
-	         System.out.println("Index : " + j + " " + hashArray[j].getKey() + " " + hashArray[j].getValue());
-	      else
-	         System.out.println("Index : " + j + " " + "**");
-	      }
-	   System.out.println("");
-	   }
-	//-------------------------------------------------------------
-	public int hashFunc(String key)
-	   {
-	   return Math.abs(key.hashCode())% Math.abs("ambestetemke".hashCode());       // hash function
-	   }
-	//-------------------------------------------------------------
-	public void insert(String key, String v) // insert a DataItem
-	// (assumes table not full)
-	   {
-	        // extract key
-	   int hashVal = hashFunc(key);  // hash the key
-	                                 // until empty cell 
-	// an index have some data and not match with existing key, it find next vacant position 
-	   while(hashArray[hashVal] != null &&
-	                   hashArray[hashVal].getKey() != key.hashCode()) 
-	      {
-	      ++hashVal;                 // go to next cell
-	      hashVal %= arraySize;      // wraparound if necessary
-	      }
-	   DataItem obj = new DataItem(key.hashCode(),v);
-	   hashArray[hashVal] = obj;    // insert item
-	   }  // end insert()
-	//-------------------------------------------------------------
-	public DataItem delete(String key)  // delete a DataItem
-	   {
-	   int hashVal = hashFunc(key);  // hash the key
-
-	   while(hashArray[hashVal] != null)  // until empty cell,
-	      {                               // found the key?
-	      if(hashArray[hashVal].getKey() == key.hashCode())
-	         {
-	         DataItem temp = hashArray[hashVal]; // save item
-	         hashArray[hashVal] = nonItem;       // delete item
-	         return temp;                        // return item
-	         }
-	      ++hashVal;                 // go to next cell
-	      hashVal %= arraySize;      // wraparound if necessary
-	      }
-	   return null;                  // can't find item
-	   }  // end delete()
-	//-------------------------------------------------------------
-	public boolean find(String key)    // find item with key
-	   {
-	   int hashVal = hashFunc(key);  // hash the key
-
-	   while(hashArray[hashVal] != null)  // until empty cell,
-	      {                               // found the key?
-	      if(hashArray[hashVal].getKey() == key.hashCode())
-	         return true;   // yes, return item
-	      ++hashVal;                 // go to next cell
-	      hashVal %= arraySize;      // wraparound if necessary
-	      }
-	   return false;                  // can't find item
-	   }
-	//-------------------------------------------------------------
-	}  // end class HashTable
-
-////////////////////////////////////////////////////////////////
-class DataItem
-{                                // (could have more data)
-private int iData;               // data item (key)
-private String value;
-//--------------------------------------------------------------
-public DataItem(int ii, String v)          // constructor
-{ iData = ii;
-value = v;
+	PersonItem[] myContacts;
+	int arraySize;
+	PersonItem removedContect;
+	HashTable(String size){
+		myContacts=new PersonItem[hashFun(size)];
+	}
+	public int hashFun(String key){
+		int sum='@';	
+			if(key.length()==1){
+			return sum+=key.charAt(0);
+			}
+			return Math.abs(sum+hashFun(key.substring(1)));	
+		
+	}
+	//add key value pairs to the hashtable array
+	public boolean insert(String key, String name){
+		int hashKey=hashFun(key);			
+		if(myContacts.length>hashKey){
+			if(myContacts[hashKey]==null){
+				myContacts[hashKey]=new PersonItem(key,name);
+				return true;
+			}
+			else{
+				while(myContacts[hashKey]!=null){//if collision, check the next cell and insert there
+					++hashKey;
+					if(myContacts.length>hashKey&&myContacts[hashKey]==null){
+						myContacts[hashKey]=new PersonItem(key,name);
+						return true;
+					}
+					if(myContacts.length<=hashKey){
+						//to be resize
+						return false;
+					}
+				}
+			}
+		}
+		return false;
+	}
+	public String find(String key){
+		int hashedValue=hashFun(key);
+		if(hashedValue<myContacts.length && hashedValue>=0){
+			if(myContacts[hashedValue]==null){
+				return null;
+			}
+			else if(myContacts[hashedValue].email_id==key){
+				return " "+myContacts[hashedValue];
+			}
+			else{
+				while(myContacts[hashedValue]!=null){
+					++hashedValue;
+					if(hashedValue<myContacts.length){
+						if(myContacts[hashedValue].email_id==key){
+							return " "+myContacts[hashedValue];
+						}
+					}
+					else{
+						return null;
+					}
+				}
+			}
+			
+		}
+		return null;
+	}
+	public boolean delete(String key){
+		int hashedValue=hashFun(key);
+		if(hashedValue<myContacts.length && hashedValue>=0){
+			if(myContacts[hashedValue]==null){
+				return false;
+			}
+			else if(myContacts[hashedValue].email_id==key){
+				removedContect=myContacts[hashedValue];
+				myContacts[hashedValue]=null;
+				return true;
+			}
+			else{
+				while(myContacts[hashedValue]!=null){
+					++hashedValue;
+					if(hashedValue<myContacts.length){
+						if(myContacts[hashedValue].email_id==key){							
+								removedContect=myContacts[hashedValue];
+								myContacts[hashedValue]=null;
+								return true;
+							}
+						}
+					else{
+						return false;
+					}
+				}
+			}
+			
+		}
+		
+		return false;
+	}
+	
+	public int size(){
+		return arraySize;
+	}
+	//shows the whole record
+	public String show(){
+		StringBuilder st=new StringBuilder();
+		for(int x=0; x<myContacts.length;x++){
+			if(myContacts[x]!=null){
+				st.append(" "+x+myContacts[x]);
+			}
+		}
+		return " "+st;
+	}
+	
+	
 }
-//--------------------------------------------------------------
-public int getKey()
-{ return iData; }
-public String getValue()
-{ return value; }
-//--------------------------------------------------------------
-}  // end class DataItem
-////////////////////////////////////////////////////////////////
+class PersonItem{
+	String name;
+	String email_id;
+	PersonItem(String email_id,String name){
+		this.name=name;
+		this.email_id=email_id;
+	}
+	@Override
+	public String toString() {
+		return "PersonItem [name=" + name + ", email_id=" + email_id + "]";
+	}
+	
+}
