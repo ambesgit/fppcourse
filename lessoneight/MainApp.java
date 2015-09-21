@@ -54,6 +54,17 @@ public class MainApp {
 		System.out.println(dr.displayList());
 		dr.find(7039450620L).displayDirectory();
 		System.out.println(dr.size());
+		ExtraCredit ex=new ExtraCredit();
+		ex.add("apple");
+		ex.add("banana");
+		ex.add("orange");
+		ex.add("lemmon");
+		System.out.println(ex.size());
+		//ex.remove("orange");
+		System.out.println(ex.get("banana"));
+		System.out.println(ex.displayAll());
+		System.out.println(ex.getLast());
+		System.out.println(ex.getFirst());
 	}
 		
 		
